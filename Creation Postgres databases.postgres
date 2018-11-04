@@ -1,0 +1,69 @@
+CREATE TABLE public."FactQuotes"
+(
+    "QuoteId" bigint NOT NULL,
+    "CreationDate" date,
+    "Business" character varying(255) COLLATE pg_catalog."default",
+    "Email" character varying(255) COLLATE pg_catalog."default",
+    "NbElevators" integer,
+    CONSTRAINT "FactQuotes_pkey" PRIMARY KEY ("QuoteId")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."FactQuotes"
+    OWNER to martin;
+
+
+CREATE TABLE public."FactContact"
+(
+    "ContactId" bigint NOT NULL,
+    "CreationDate" date,
+    "Business" character varying(255) COLLATE pg_catalog."default",
+    "Email" character varying(255) COLLATE pg_catalog."default",
+    "ProjectName" character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT "FactContact_pkey" PRIMARY KEY ("ContactId")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."FactContact"
+    OWNER to martin;
+	
+
+CREATE TABLE public."FactElevator"
+(
+    "ElevatorId" bigint NOT NULL,
+    "SerialNumber" character varying(255) COLLATE pg_catalog."default",
+    "Commissioning" date,
+    "BuildingId" bigint,
+    "CustomerId" bigint,
+    "City" character varying(255) COLLATE pg_catalog."default",
+    PRIMARY KEY ("ElevatorId")
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public."FactElevator"
+    OWNER to martin;
+	
+
+CREATE TABLE public."DimCustomers"
+(
+    "Creationdate" date,
+    "Business" character varying(255) COLLATE pg_catalog."default",
+    "ContactFullName" character varying(255) COLLATE pg_catalog."default",
+    "ContactEmail" character varying(255) COLLATE pg_catalog."default",
+    "NbElevators" integer,
+    "City" character varying(255) COLLATE pg_catalog."default"
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public."DimCustomers"
+    OWNER to martin;

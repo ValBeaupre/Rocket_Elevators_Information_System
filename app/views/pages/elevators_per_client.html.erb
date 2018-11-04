@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Rocket Elevators Chart</title>
+	</head>
+
+	<body>
+		<h2> Number of elevators per client</h2>
+		<canvas class="chartjs fullwidth height-300" id="barChartCanvas" width="547" height="300"></canvas>
+	<script>
+	var barChartCanvas = {
+		labels:[
+				<% @res.each do |elevator| %>
+					"<%= elevator[1] %>/<%= elevator[0] %>", 		// 1 = Year, 0 = Month
+				<% end %>
+			],
+			datasets:[
+				{
+					fillColor : "rgba(100,220,220,0.5)",
+					strokeColor : "rgba(220,430,220,0.8)",
+					highlightFill: "rgba(220,220,220,0.75)",
+					highlightStroke: "rgba(220,220,220,1)",
+					data : [
+						<% @res.each do |elevator| %>
+							<%= elevator[2] %>, 			// 2 = Number (or How many)
+						<% end %>
+						]
+				}
+			]
+		};
+
+			var ctx = document.getElementById("barChartCanvas").getContext("2d");
+			new Chart(ctx).Bar(barChartCanvas);
+
+	</script>
+	</body>
+</html>

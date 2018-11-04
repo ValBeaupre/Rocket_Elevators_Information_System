@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	<meta charset="utf-8" />
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/_rocket/Elevator_Icon.ico">
+		<title>Rocket Elevators</title>
+
+		<%= csrf_meta_tags %>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet" type="text/css" />
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
+		<%= stylesheet_link_tag 'application', media: 'all' %>
+		<%= javascript_include_tag 'application' %>
+	</head>
+
+
+	<body class="smoothscroll enable-animation grain-blue">
+	
+		<div id="wrapper">
+
+			<div id="header" class="navbar-toggleable-md sticky header-md clearfix">
+
+				<!-- TOP NAV -->
+				<header id="topNav">
+
+					<div class="container">
+
+						<!-- Mobile Menu Button -->
+						<button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+							<i class="fa fa-bars"></i>
+						</button>
+
+						<!-- Logo -->
+						<a class="logo float-left" href="index.html">
+						<%= image_tag '_rocket/R2.png' %>
+						</a>
+
+						<!-- Top Menu -->
+						<div class="navbar-collapse collapse float-right nav-main-collapse submenu-dark">
+
+							<nav class="nav-main">
+
+								<ul id="topMain" class="nav nav-pills nav-main nav-onepage">
+
+									<li class="active">
+										<!-- HOME -->
+										<a href="/">
+											HOME
+										</a>
+									</li>
+
+									<li>
+										<!-- SERVICES -->
+										<a href="/#services" class="dropdown-toggle">
+											SERVICES
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="residential">Residential</a></li>
+											<li><a href="commercial">Commercial</a></li>
+										</ul>
+									</li>
+
+									<li>
+										<!-- WORK -->
+										<a href="/#portfolio">
+											PORTFOLIO
+										</a>
+									</li>
+
+									<li>
+										<!-- NEWS -->
+										<a href="/#news">
+											NEWS
+										</a>
+									</li>
+
+									<li>
+										<!-- CLIENTS -->
+										<a href="/#clients">
+											CLIENTS
+										</a>
+									</li>
+
+									<li>
+										<!-- CONTACT -->
+										<a href="/#contact">
+											CONTACT
+										</a>
+									</li>
+
+									<li>
+										<!-- EMPLOYEES -->
+										<a href="/users/sign_in">
+											Admin
+										</a>
+									</li>
+
+								</ul>
+
+							</nav>
+
+						</div>
+
+					</div>
+
+				</header>
+
+			</div>
+
+
+    	<%= yield %>
+
+
+			<footer id="footer">
+
+				<div class="container">
+
+					<div class="row">
+
+						<!-- col #1 -->
+						<div class="col-md-8">
+							<h3 class="letter-spacing-1">WHY ROCKET ELEVATORS?</h3>
+
+							<!-- Small Description -->
+							<p>
+								You WANT the best elevator for your security and well being <br> at the touch of a bouton!
+							</p>
+							<h2>418-580-7055</h2>
+						</div>
+
+						<!-- col #2 -->
+						<div class="col-md-4">
+							<h3 class="letter-spacing-1">STAY INFORMED</h3>
+
+							<!-- Newsletter Form -->
+							<p>Subscribe to Our Newsletter to get Important News & Offers</p>
+
+							<form class="validate" method="post" data-success="Subscribed! Thank you!" data-toastr-position="bottom-right">
+
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+									<input type="email" id="email" name="email" class="form-control required" placeholder="Enter your Email">
+									<span class="input-group-btn">
+										<button class="btn btn-success" type="submit">Subscribe</button>
+									</span>
+								</div>
+
+							</form>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="copyright">
+
+					<div class="container">
+
+						<ul class="float-right m-0 list-inline mobile-block">
+							<li>Terms &amp; Conditions</li>
+							<li>&bull;</li>
+							<li>Privacy</li>
+						</ul>
+
+						&copy; All Rights Reserved, Rocket Elevators
+
+					</div>
+
+				</div>
+
+			</footer>
+    
+		</div>
+
+	</body>
+
+</html> 

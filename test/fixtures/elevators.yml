@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ColumnId: 
+  Series: 
+  Modal: MyString
+  Type: MyString
+  Status: MyString
+  Start_date: 2018-10-09 15:26:14
+  Last_check: 2018-10-09 15:26:14
+  Certificate: MyString
+  Information: MyText
+  Notes: MyText
+
+two:
+  ColumnId: 
+  Series: 
+  Modal: MyString
+  Type: MyString
+  Status: MyString
+  Start_date: 2018-10-09 15:26:14
+  Last_check: 2018-10-09 15:26:14
+  Certificate: MyString
+  Information: MyText
+  Notes: MyText

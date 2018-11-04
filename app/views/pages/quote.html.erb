@@ -1,0 +1,614 @@
+<section class="page-header">
+
+	<div class="container">
+		<h1 class="center: center;" style="color:royalblue">QUOTE FORM</h1>
+	</div>
+
+</section>
+
+
+<!-- tabs -->
+<ul class="nav nav-tabs nav-bottom-border nav-justified" id="submission-tab" role="tablist">
+
+	<li class="nav-item">
+		<a class="nav-item" id="residential-tab-button" data-toggle="tab" href="#residential" role="tab" aria-controls="residential" aria-selected="false">RESIDENTIAL</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-item" id="commercial-tab-button" data-toggle="tab" href="#commercial" role="tab" aria-controls="commercial" aria-selected="false">COMMERCIAL</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-item" id="corporate-tab-button" data-toggle="tab" href="#corporate" role="tab" aria-controls="corporate" aria-selected="false">CORPORATE</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-item" id="hybrid-tab-button" data-toggle="tab" href="#hybrid" role="tab" aria-controls="hybrid" aria-selected="false">HYBRID</a>
+	</li>
+
+</ul>  <!-- /tabs -->
+
+
+<div class="tab-content" id="submission-tabContent">
+
+	<!-- Residential Form -->
+	<div class="tab-pane fade show" id="residential" role="tabpanel" aria-labelledby="residential-tab">
+
+		<section id="#residential">
+
+			<div class="card-block">
+
+				<% if flash[:error].present? %>
+				<p class='flash-error'><%= flash[:error] %></p>
+				<% end %>
+
+				<% if flash[:notice].present? %>
+				<p class='flash-notice'><%= flash[:notice] %></p>
+				<% end %>
+				
+				<%= form_for :resQuote, url: url_for(controller: 'pages', action: 'quote_post'),  :html => {id: "resSubmit", :class => "validate text-center"} do |f|%> 
+
+					<fieldset>
+
+						<!-- required -->
+						<div class="row">
+							<%= f.hidden_field :value %>
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Apartments *</label>
+								<%= f.text_field :nb_apartments, :required => true, type: "number", class: "form-control elevators", id: "resQuote_resNbApartments", :onkeyup => "resQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Floors *</label>
+								<%= f.text_field :nb_floors, :required => true, type: "number", class: "form-control elevators", id: "resQuote_resNbFloors", :onkeyup => "resQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Basement Floors *</label>
+								<%= f.text_field :nb_basements, :required => true, type: "number", class: "form-control elevators", id: "resQuote_resNbBsmtFloors", :onkeyup => "resQuote()" %>
+							</div>
+
+						</div>
+
+						<hr>
+
+						<div class="col-md-14 text-center">
+							<label>Number Of Elevators Required</label>
+							<%= f.text_field :nb_shafts, :required => true, id: "resQuote_resElev", class: "elevators", type: "number", :readonly => true %>
+						</div>
+
+						<hr>
+
+						<!-- radio buttons -->
+						<div class="button-radio">
+
+							<label class="radio col-md-1">
+								<input id="resStandard" type="radio" name="rdo-btn" onchange="resQuote()">
+								<i></i> Standard
+							</label>
+
+							<label class="radio col-md-1">
+								<input id="resPremium" type="radio" name="rdo-btn" onchange="resQuote()">
+								<i></i> Premium
+							</label>
+
+							<label class="radio col-md-1">
+								<input id="resExcelium" type="radio" name="rdo-btn" onchange="resQuote()">
+								<i></i> Excelium
+							</label>
+
+						</div>
+
+						<hr>
+
+						<div class="col-md-12 text-center">
+							<label>Estimated Price in $</label>
+							<input id="resPrice" class="price" type="number" readonly disabled>
+						</div>
+
+						<hr>
+
+					</fieldset>
+
+					<fieldset>
+
+						<input type="hidden" name="action" value="contact_send" />
+
+						<!-- client informations -->
+						<div class="row col-md-12">
+	
+							<div class="col-md-4">
+								<p>
+								<%= f.label "Business Name *" %>
+								<%= f.text_field :business, :required => true, class: "form-control elevators" %>
+								</p>
+							</div>
+		
+							<div class="col-md-4">
+								<p>
+								<%= f.label "Full Name *" %>
+								<%= f.text_field :fullname, :required => true, class: "form-control elevators" %>
+								</p>
+							</div>
+		
+							<div class="col-md-4">
+								<p>
+								<%= f.label "Email *" %>
+								<%= f.text_field :email, :required => true, class: "form-control elevators" %>
+								</p>
+							</div>
+
+							<hr>
+
+						</div>
+			
+						<div class="row">
+
+							<div class="col-md-12 text-center">
+								<p>
+									<%= button_tag(class: "btn btn-red btn-danger btn-outline-primary") do %>
+										<i class="fa fa-check"></i> SUBMIT QUOTE
+									<% end %>
+								</p>
+							</div>
+
+						</div>
+								
+						<hr>
+
+					</fieldset>
+
+				<% end %>
+
+			</div>
+
+		</section>
+
+	</div>  <!-- /Residential Form -->
+
+	<!-- Commercial Form -->
+	<div class="tab-pane fade" id="commercial" role="tabpanel" aria-labelledby="commercial-tab">
+
+		<section id="commercial">
+
+			<div class="card-block">
+
+				<% if flash[:error].present? %>
+				<p class='flash-error'><%= flash[:error] %></p>
+				<% end %>
+
+				<% if flash[:commnotice].present? %>
+				<p class='flash-notice'><%= flash[:commnotice] %></p>
+				<% end %>
+				
+				<%= form_for :commQuote, url: url_for(controller: 'pages', action: 'comm_post'), :html => {id: "commSubmit", :class => "validate text-center"} do |f|%> 
+
+					<fieldset>
+
+						<!-- required -->
+						<div class="row">
+							<%= f.hidden_field :value %>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Distinct Tenants *</label>
+								<%= f.text_field :nb_apartments, :required => true, type: "number", id: "commQuote_commNbTenants", class: "form-control elevators", :onkeyup => "commQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Floors *</label>
+								<%= f.text_field :nb_floors, :required => true, type: "number", id: "commQuote_commNbFloors", class: "form-control elevators", :onkeyup => "commQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Basement Floors *</label>
+								<%= f.text_field :nb_basements, :required => true, type: "number", id: "commQuote_commNbBsmtFloor", class: "form-control elevators", :onkeyup => "commQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Parking Spaces *</label>
+								<%= f.text_field :nb_parkings, :required => true, type: "number", id: "commQuote_commNbPrkgSpaces", class: "form-control elevators", :onkeyup => "commQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Elevator Shafts *</label>
+								<%= f.text_field :nb_shafts, :required => true, type: "number", id: "commQuote_commNbElevShafts", class: "form-control elevators", :onkeyup => "commQuote()" %>
+							</div>
+
+						</div>
+
+						<hr>
+
+						<div class="col-md-14 text-center">
+							<label>Number Of Elevators Required</label>
+
+              <%# <%= f.text_field :nb_shafts, id: "commNbElevReq", class: "elevators", type: "number", :readonly => true, :disabled => true %>
+							<input id="commNbElevReq" class="elevators" type="number" readonly disabled>
+
+						</div>
+
+						<hr>
+
+						<!-- radio buttons -->
+						<div class="button-radio">
+
+							<label class="radio col-md-1">
+								<input id="commStandard" type="radio" name="rdo-btn" onchange="commQuote()">
+								<i></i> Standard
+							</label>
+
+							<label class="radio col-md-1">
+								<input id="commPremium" type="radio" name="rdo-btn" onchange="commQuote()">
+								<i></i> Premium
+							</label>
+
+							<label class="radio col-md-1">
+								<input id="commExcelium" type="radio" name="rdo-btn" onchange="commQuote()">
+								<i></i> Excelium
+							</label>
+
+						</div>
+
+						<hr>
+
+						<div class="col-md-14 text-center">
+							<label>Estimated Price in $</label>
+							<input id="commPrice" class="price" type="number" readonly disabled>
+						</div>
+
+						<hr>
+
+					</fieldset>
+
+					<fieldset>
+
+						<input type="hidden" name="action" value="contact_send" />
+
+						<!-- client informations -->
+						<div class="row col-md-12">
+	
+							<div class="col-md-4">
+								<p>
+								<%= f.label "Business Name *" %>
+								<%= f.text_field :business, :required => true, class: "form-control elevators" %>
+								</p>
+							</div>
+		
+							<div class="col-md-4">
+								<p>
+								<%= f.label "Full Name *" %>
+								<%= f.text_field :fullname, :required => true, class: "form-control elevators" %>
+								</p>
+							</div>
+		
+							<div class="col-md-4">
+								<p>
+								<%= f.label "Email *" %>
+								<%= f.text_field :email, :required => true, class: "form-control elevators" %>
+								</p>
+							</div>
+
+							<hr>
+
+						</div>
+			
+						<div class="row">
+
+							<div class="col-md-12 text-center">
+								<p>
+									<%= button_tag(class: "btn btn-red btn-danger btn-outline-primary") do %>
+										<i class="fa fa-check"></i> SUBMIT QUOTE
+									<% end %>
+								</p>
+							</div>
+
+						</div>
+								
+						<hr>
+
+					</fieldset>
+
+				<% end %>
+
+			</div>
+
+		</section>
+
+	</div>  <!-- /Commercial Form -->
+
+	<!-- Corporate Form -->
+	<div class="tab-pane fade" id="corporate" role="tabpanel" aria-labelledby="corporate-tab">
+
+		<section id="#corporate">
+
+			<div class="card-block">
+
+				<% if flash[:error].present? %>
+				<p class='flash-error'><%= flash[:error] %></p>
+				<% end %>
+
+				<% if flash[:cornotice].present? %>
+				<p class='flash-notice'><%= flash[:cornotice] %></p>
+				<% end %>
+				
+				<%= form_for :corpQuote, url: url_for(controller: 'pages', action: 'cor_post'), :html => {id: "corpSubmit", :class => "validate text-center"} do |f|%> 
+
+					<fieldset>
+
+						<!-- required -->
+						<div class="row">
+						<%= f.hidden_field :value %>
+							
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Business Distinct Tenants *</label>
+								<%= f.text_field :nb_apartments, :required => true, type: "number", class: "form-control elevators", id: "corpQuote_corpNbTenants", :onkeyup => "corpQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Floors *</label>
+								<%= f.text_field :nb_floors, :required => true, type: "number", class: "form-control elevators",  id: "corpQuote_corpNbFloors", :onkeyup => "corpQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Basement Floors *</label>
+								<%= f.text_field :nb_basements, :required => true, type: "number", class: "form-control elevators", id: "corpQuote_corpNbBsmtFloors", :onkeyup => "corpQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Parking Spaces *</label>
+								<%= f.text_field :nb_parkings, :required => true, type: "number", class: "form-control elevators", id: "corpQuote_corpNbPrkgSpcaces", :onkeyup => "corpQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Occupants Per Floor Maximum *</label>
+								<%= f.text_field :nb_occupants, :required => true, type: "number", class: "form-control elevators", id: "corpQuote_corpNbOccupants", :onkeyup => "corpQuote()" %>
+							</div>
+
+						</div>
+
+						<hr>
+
+						<div class="col-md-14 text-center">
+                            <label>Number Of Elevators Required </label>
+                            <%= f.text_field :nb_shafts, :required => true, :readonly => true, id: "corpQuote_corpNbElevReq", class: "elevators", type: "number" %>
+                        </div>
+
+
+						<hr>
+
+						<!-- radio buttons -->
+						<div class="button-radio">
+
+							<label class="radio col-md-1">
+								<input id="corpStandard" type="radio" name="rdo-btn" onchange="corpQuote()">
+								<i></i> Standard
+							</label>
+
+							<label class="radio col-md-1">
+								<input id="corpPremium" type="radio" name="rdo-btn" onchange="corpQuote()">
+								<i></i> Premium
+							</label>
+
+							<label class="radio col-md-1">
+								<input id="corpExcelium" type="radio" name="rdo-btn" onchange="corpQuote()">
+								<i></i> Excelium
+							</label>
+
+						</div>
+
+						<hr>
+
+						<div class="col-md-14 text-center">
+							<label>Estimated Price in $</label>
+							<input id="corpPrice" class="price" type="number" readonly disabled>
+						</div>
+
+						<hr>
+
+					</fieldset>
+
+					<fieldset>
+
+						<input type="hidden" name="action" value="contact_send" />
+
+						<!-- client informations -->
+						<div class="row col-md-12">
+	
+							<div class="col-md-4">
+								<p>
+								<%= f.label "Business Name *" %>
+								<%= f.text_field :business, :required => true, class: "form-control elevators" %>
+								</p>
+							</div>
+		
+							<div class="col-md-4">
+								<p>
+								<%= f.label "Full Name *" %>
+								<%= f.text_field :fullname, :required => true, class: "form-control elevators" %>
+								</p>
+							</div>
+		
+							<div class="col-md-4">
+								<p>
+								<%= f.label "Email *" %>
+								<%= f.text_field :email, :required => true, class: "form-control elevators" %>
+								</p>
+							</div>
+
+							<hr>
+
+						</div>
+			
+						<div class="row">
+
+							<div class="col-md-12 text-center">
+								<p>
+									<%= button_tag(class: "btn btn-red btn-danger btn-outline-primary") do %>
+										<i class="fa fa-check"></i> SUBMIT QUOTE
+									<% end %>
+								</p>
+							</div>
+
+						</div>
+							
+						<hr>
+
+					</fieldset>
+
+				<% end %>
+
+		</section>
+
+	</div>  <!-- /Corporate Form -->
+
+	<!-- Hybrid Form -->
+	<div class="tab-pane fade" id="hybrid" role="tabpanel" aria-labelledby="hybrid-tab">
+
+		<section id="#hybrid">
+
+			<div class="card-block">
+
+				<% if flash[:error].present? %>
+				<p class='flash-error'><%= flash[:error] %></p>
+				<% end %>
+
+				<% if flash[:hybnotice].present? %>
+				<p class='flash-notice'><%= flash[:hybnotice] %></p>
+				<% end %>
+				
+				<%= form_for :hybQuote, url: url_for(controller: 'pages', action: 'hyb_post'), :html => {id: "hybSubmit", :class => "validate text-center"} do |f|%> 
+
+					<fieldset>
+
+						<!-- required -->
+			
+						<div class="row">
+							<%= f.hidden_field :value %>
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Distincts Tenants *</label>
+								<%= f.text_field :nb_apartments, :required => true, type: "number", class: "form-control elevators", id: "hybQuote_hybNbTenants", :onkeyup => "hybQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Floors *</label>
+								<%= f.text_field :nb_floors, :required => true, type: "number", class: "form-control elevators", id: "hybQuote_hybNbFloors", :onkeyup => "hybQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Basement Floors *</label>
+								<%= f.text_field :nb_basements, :required => true, type: "number", class: "form-control elevators", id: "hybQuote_hybNbBsmtFloors", :onkeyup => "hybQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Parking Spaces *</label>
+								<%= f.text_field :nb_parkings, :required => true, type: "number", class: "form-control elevators", id: "hybQuote_hybNbPrkgSpaces", :onkeyup => "hybQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Occupants Per Level Maximum *</label>
+								<%= f.text_field :nb_occupants, :required => true, type: "number", class: "form-control elevators", id: "hybQuote_hybNbOccupants", :onkeyup => "hybQuote()" %>
+							</div>
+
+							<div class="col-md-4 col-sm-6">
+								<label>How Many Activity Hours In The Building (Max 24) *</label>
+								<%= f.text_field :nb_hours, :required => true, type: "number", class: "form-control elevators", id: "hybQuote_hybNbActHours", :onkeyup => "verifHours()" %>
+							</div>
+
+						</div>
+
+						<hr>
+
+						<div class="col-md-14 text-center">
+							<label>Number Of Elevators Required</label>
+							<%= f.text_field :nb_shafts, :Required => true, id: "hybQuote_hybNbElevReq", class: "elevators", type: "number", :readonly => true %>
+						</div>
+
+						<hr>
+
+						<!-- radio buttons -->
+						<div class="button-radio">
+
+							<label class="radio col-md-1">
+								<input id="hybStandard" type="radio" name="rdo-btn" onchange="hybQuote()">
+								<i></i> Standard
+							</label>
+
+							<label class="radio col-md-1">
+								<input id="hybPremium" type="radio" name="rdo-btn" onchange="hybQuote()">
+								<i></i> Premium
+							</label>
+
+							<label class="radio col-md-1">
+								<input id="hybExcelium" type="radio" name="rdo-btn" onchange="hybQuote()">
+								<i></i> Excelium
+							</label>
+
+						</div>
+
+						<hr>
+
+						<div class="col-md-14 text-center">
+							<label>Estimated Price in $</label>
+							<input id="hybPrice" class="price" type="number" readonly disabled>
+						</div>
+
+						<hr>
+
+					</fieldset>
+
+					<fieldset>
+
+						<input type="hidden" name="action" value="contact_send" />
+
+							<!-- client informations -->
+							<div class="row col-md-12">
+		
+								<div class="col-md-4">
+									<p>
+									<%= f.label "Business Name *" %>
+									<%= f.text_field :business, :required => true, class: "form-control elevators" %>
+									</p>
+								</div>
+			
+								<div class="col-md-4">
+									<p>
+									<%= f.label "Full Name *" %>
+									<%= f.text_field :fullname, :required => true, class: "form-control elevators" %>
+									</p>
+								</div>
+			
+								<div class="col-md-4">
+									<p>
+									<%= f.label "Email *" %>
+									<%= f.text_field :email, :required => true, class: "form-control elevators" %>
+									</p>
+								</div>
+
+								<hr>
+
+							</div>
+				
+							<div class="row">
+
+								<div class="col-md-12 text-center">
+									<p>
+										<%= button_tag(class: "btn btn-red btn-danger btn-outline-primary") do %>
+											<i class="fa fa-check"></i> SUBMIT QUOTE
+										<% end %>
+									</p>
+								</div>
+
+							</div>
+								
+						<hr>
+
+					</fieldset>
+
+				<% end %>
+
+			</div>
+
+		</section>
+
+	</div>  <!-- /Hybrid Form -->
+
+</div> 
